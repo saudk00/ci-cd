@@ -18,12 +18,12 @@ jobs:
 
     - name: Build Image (incremental) #will increment on each existing tag
       run: |
-        docker build -t "${{ secrets.DOCKER_USERNAME }}/nginx:${{ github.ref_name }}" .
+        docker build -t "${{ secrets.DOCKER_USERNAME }}/mynginx:${{ github.ref_name }}" .
       working-directory: Docker
 
     - name: Build Image (latest) #will overwrite the latest tag so its always the latest
       run: |
-        docker build -t "${{ secrets.DOCKER_USERNAME }}/nginx:latest" .
+        docker build -t "${{ secrets.DOCKER_USERNAME }}/mynginx:latest" .
       working-directory: Docker
 
     - name: Log in to Docker
