@@ -1,0 +1,38 @@
+name: DockerBuild
+on:
+  push:
+    tags:
+      - '*' #when a new tag is created, pipeline will trigger
+  workflow_dispatch: #manually run via git button
+    
+jobs:
+  dockerbuildandpush:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: clone codebase
+        uses: actions/checkout@v2
+      
+      - name: setup Docker Build
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Image (incremental) #allows versioning
+      #pipe in run allows multiple command inputs
+        run: |
+          docker build -t "${{ secrets.DOCKER_USERNAME }}/mynginx:${{ github.ref_name }}" .
+        working-directory: docker
+
+      - name: Build Image (latest)
+        run: |
+          docker build -t "${{ secrets.DOCKER_USERNAME }}/mynginx:latest" .
+        working-directory: docker
+
+      - name: Log in to Docker
+        run: | # echo gives you an output which you use in as a input in command after pipe
+          echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Push Image (incremental) #pushing docker imcremental image to docker user image
+        run: docker push "${{ secrets.DOCKER_USERNAME }}/mynginx:${{ github.ref_name }}"
+
+      - name: Push Image (latest) #pushing docker latest image to docker user image
+        run: docker push "${{ secrets.DOCKER_USERNAME }}/mynginx:latest"
