@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../../../gha-workflows"
+		},
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {}
+}
