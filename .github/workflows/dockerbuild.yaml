@@ -18,12 +18,12 @@ jobs:
 
     - name: Build Image (incremental) #will increment on each existing tag
       run: |
-        docker build -t "${{ secrets.DOCKER_USERNAME }}/mynginx:${{ github.ref_name }}" .
+        docker build -t "${{ secrets.DOCKER_USERNAME }}/nginx:${{ github.ref_name }}" .
       working-directory: docker1
 
     - name: Build Image (latest) #will overwrite the latest tag so its always the latest
       run: |
-        docker build -t "${{ secrets.DOCKER_USERNAME }}/mynginx:latest" .
+        docker build -t "${{ secrets.DOCKER_USERNAME }}/nginx:latest" .
       working-directory: docker1
 
     - name: Log in to Docker
@@ -31,7 +31,7 @@ jobs:
         echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
     - name: Push Image (incremental) #pushing docker imcremental image to docker user image
-      run: docker push "${{ secrets.DOCKER_USERNAME }}/mynginx:${{ github.ref_name }}"
+      run: docker push "${{ secrets.DOCKER_USERNAME }}/nginx:${{ github.ref_name }}"
 
     - name: Push Image (latest) #pushing docker latest image to docker user image
-      run: docker push "${{ secrets.DOCKER_USERNAME }}/mynginx:latest"
+      run: docker push "${{ secrets.DOCKER_USERNAME }}/nginx:latest"
