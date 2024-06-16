@@ -7,7 +7,7 @@ on:
      - completed
 
 jobs:
-  deploy: 
+  k8deploy: 
     runs-on: ubuntu-latest
 
     steps:
