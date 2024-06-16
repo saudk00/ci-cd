@@ -19,12 +19,12 @@ jobs:
     - name: Build Image (incremental) #will increment on each existing tag
       run: |
         docker build -t "${{ secrets.DOCKER_USERNAME }}/nginx:${{ github.ref_name }}" .
-      working-directory: docker1
+      working-directory: docker
 
     - name: Build Image (latest) #will overwrite the latest tag so its always the latest
       run: |
         docker build -t "${{ secrets.DOCKER_USERNAME }}/nginx:latest" .
-      working-directory: docker1
+      working-directory: docker
 
     - name: Log in to Docker
       run: | # echo gives you an output which you use in as a input in command after pipe
