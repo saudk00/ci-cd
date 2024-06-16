@@ -1,24 +1,24 @@
 name: Terraform Deploy #infrasture deployment pipeline
 
-on: # what is triggering this specific for the workflow to run
+on: # what is triggering this specific file for the workflow to run
   push: #event
-    branches: #can have multiple branches
+    branches: #can have multiple branches, but they have to exist in git
       - main #should already exist
   pull_request: #pull request for specific branch
     branches: #name-specific
       - main
-  workflow_dispatch: #creates a manual physical button on guthub page to allow you to manually push or pull; manually run this workflow
+  workflow_dispatch: #creates a manual physical button on guthub page to allow you to manually trigger workflows in gui
 
 jobs: #consists of steps
-  infra-deploy:
-    runs-on: ubuntu-latest #runner; who will execute this jobs
+  infra-deploy: #could be any name
+    runs-on: ubuntu-latest #runner; who will it execute on
 
-    steps:
+    steps: #list job or step should be clonning our repo
     - name: clone-codebase
-      uses: actions/checkout@v2 #preconfigured action that allows you to clone ur repo
+      uses: actions/checkout@v2 #preconfigured action by github marketplace that allows you to clone ur repo
 
     - name: install Terraform
-      uses: hashicorp/setup-terraform@v1 #action is uses; uses this action to setup terraform
+      uses: hashicorp/setup-terraform@v1 #action is uses; uses this action to setup terraform; found in github marketplace
       with: #installs specific version for this action; parameters for action
         terraform_version: 1.1.0
     
