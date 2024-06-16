@@ -28,5 +28,5 @@ jobs:
       run: kubectl create namespace web
 
     - name: apply kubernetes manifests
-      run: kubecl apply -f deployment.yaml
+      run: kubectl apply -f deployment.yaml
       working-directory: kubernetes
