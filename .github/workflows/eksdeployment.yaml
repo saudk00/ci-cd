@@ -2,7 +2,7 @@ name: EKS Deployment
 
 on: 
   workflow_run:
-    workflows: ["Build and Push Docker Image"]
+    workflows: ["DockerBuild"]
     types:
      - completed
 
@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: clone codebase
-      uses: actions/checkoutv@v2
+      uses: actions/checkout@v2
 
     - name: configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
